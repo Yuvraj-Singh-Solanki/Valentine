@@ -20,27 +20,6 @@ body{
   background:linear-gradient(135deg,#ff9a9e,#fecfef);
   font-family:Arial, sans-serif;
   overflow:hidden;
-  position:relative;
-}
-
-/* Floating hearts */
-.heart{
-  position:absolute;
-  color:#ff4d6d;
-  font-size:20px;
-  animation:float 6s linear infinite;
-  opacity:0.6;
-}
-
-@keyframes float{
-  from{
-    transform:translateY(100vh) scale(1);
-    opacity:0;
-  }
-  to{
-    transform:translateY(-10vh) scale(1.5);
-    opacity:1;
-  }
 }
 
 .container{
@@ -63,6 +42,7 @@ h1{
 .buttons{
   display:flex;
   justify-content:center;
+  align-items:center;
   gap:20px;
   position:relative;
   height:60px;
@@ -88,107 +68,43 @@ button{
 
 #noBtn{
   background:#ddd;
-  position:absolute;
-}
-
-/* Popup */
-.popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-
-.popup-content{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  width:85%;
-  max-width:320px;
-  text-align:center;
-  animation:pop 0.4s ease;
-}
-
-.popup-content h2{
-  color:#ff4d6d;
-  margin-bottom:10px;
-}
-
-.popup-content p{
-  font-size:14px;
-  color:#444;
-  line-height:1.6;
-}
-
-@keyframes pop{
-  from{transform:scale(0.7);opacity:0;}
-  to{transform:scale(1);opacity:1;}
+  position:relative;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Floating Hearts -->
-<script>
-for(let i=0;i<15;i++){
-  const heart = document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="❤️";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(3+Math.random()*3)+"s";
-  heart.style.fontSize=(15+Math.random()*20)+"px";
-  document.body.appendChild(heart);
-}
-</script>
-
 <div class="container">
   <h1>Will You Be My Valentine? ❤️</h1>
 
-  <div class="buttons">
+  <div class="buttons" id="buttonArea">
     <button id="yesBtn">Yes ❤️</button>
     <button id="noBtn">No 💔</button>
-  </div>
-</div>
-
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <h2>Yayyyyy My Love ❤️</h2>
-    <p>
-      From this moment on… 💕<br><br>
-      You are officially my Valentine 💖<br>
-      Not just for today… but forever ♾️<br><br>
-      I choose you. In every lifetime. ❤️
-    </p>
   </div>
 </div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const popup = document.getElementById("popup");
-const container = document.querySelector(".buttons");
+const area = document.getElementById("buttonArea");
 
-let noScale = 1;
+let moved = false;
 
 function moveButton() {
-  const maxX = container.clientWidth - noBtn.offsetWidth;
-  const maxY = container.clientHeight - noBtn.offsetHeight;
+  if(!moved){
+    moved = true;
+    noBtn.style.position = "absolute";
+  }
+
+  const maxX = area.clientWidth - noBtn.offsetWidth;
+  const maxY = area.clientHeight - noBtn.offsetHeight;
 
   const randomX = Math.random() * maxX;
   const randomY = Math.random() * maxY;
 
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
-
-  noScale -= 0.1;
-  if(noScale > 0.4){
-    noBtn.style.transform = "scale(" + noScale + ")";
-  }
-
-  noBtn.innerHTML = "Are you sure? 🥺";
 }
 
 noBtn.addEventListener("touchstart", function(e){
@@ -199,19 +115,7 @@ noBtn.addEventListener("touchstart", function(e){
 noBtn.addEventListener("mouseover", moveButton);
 
 yesBtn.addEventListener("click", () => {
-  popup.style.display = "flex";
-
-  // Confetti burst
-  for(let i=0;i<30;i++){
-    const conf = document.createElement("div");
-    conf.innerHTML="💖";
-    conf.style.position="fixed";
-    conf.style.left=Math.random()*100+"vw";
-    conf.style.top="0px";
-    conf.style.fontSize="20px";
-    conf.style.animation="float 4s linear forwards";
-    document.body.appendChild(conf);
-  }
+  window.location.href = "love.html";
 });
 </script>
 
