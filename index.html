@@ -41,7 +41,7 @@ h1{
 .buttons{
   position:relative;
   width:100%;
-  height:120px;
+  height:180px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -100,8 +100,18 @@ function moveButton() {
   const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
   const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
+  let randomX, randomY;
+
+  const safeDistance = 180; // distance from Yes button
+
+  do {
+    randomX = Math.random() * maxX;
+    randomY = Math.random() * maxY;
+
+  } while (
+    Math.abs(randomX - yesBtn.offsetLeft) < safeDistance &&
+    Math.abs(randomY - yesBtn.offsetTop) < safeDistance
+  );
 
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
