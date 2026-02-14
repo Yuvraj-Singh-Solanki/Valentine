@@ -41,10 +41,7 @@ h1{
 .buttons{
   position:relative;
   width:100%;
-  height:150px;   /* gives full movement space */
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  height:160px;   /* gives full movement space */
 }
 
 
@@ -86,33 +83,22 @@ button{
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const container = document.querySelector(".container");
+const buttonArea = document.getElementById("buttonArea");
 
-let isAbsolute = false;
+yesBtn.style.position = "absolute";
+yesBtn.style.left = "50%";
+yesBtn.style.top = "50%";
+yesBtn.style.transform = "translate(-50%, -50%)";
+
+noBtn.style.position = "absolute";
 
 function moveButton() {
 
-  if (!isAbsolute) {
-    noBtn.style.position = "absolute";
-    isAbsolute = true;
-  }
+  const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
+  const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
 
-  const containerRect = container.getBoundingClientRect();
-
-  const maxX = container.clientWidth - noBtn.offsetWidth;
-  const maxY = container.clientHeight - noBtn.offsetHeight;
-
-  let randomX;
-  let randomY;
-
-  do {
-    randomX = Math.random() * maxX;
-    randomY = Math.random() * maxY;
-  } 
-  while (
-    Math.abs(randomX - yesBtn.offsetLeft) < 120 &&
-    Math.abs(randomY - yesBtn.offsetTop) < 80
-  );
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
 
   noBtn.style.left = randomX + "px";
   noBtn.style.top = randomY + "px";
