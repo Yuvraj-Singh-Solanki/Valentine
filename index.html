@@ -41,7 +41,11 @@ h1{
 .buttons{
   position:relative;
   width:100%;
-  height:160px;   /* gives full movement space */
+  height:120px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
 }
 
 
@@ -65,7 +69,6 @@ button{
 
 #noBtn{
   background:#ddd;
-  position:relative;
 }
 </style>
 </head>
@@ -85,14 +88,14 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const buttonArea = document.getElementById("buttonArea");
 
-yesBtn.style.position = "absolute";
-yesBtn.style.left = "50%";
-yesBtn.style.top = "50%";
-yesBtn.style.transform = "translate(-50%, -50%)";
-
-noBtn.style.position = "absolute";
+let moved = false;
 
 function moveButton() {
+
+  if (!moved) {
+    noBtn.style.position = "absolute";
+    moved = true;
+  }
 
   const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
   const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
@@ -104,12 +107,12 @@ function moveButton() {
   noBtn.style.top = randomY + "px";
 }
 
+noBtn.addEventListener("mouseover", moveButton);
+
 noBtn.addEventListener("touchstart", function(e){
   e.preventDefault();
   moveButton();
 });
-
-noBtn.addEventListener("mouseover", moveButton);
 
 yesBtn.addEventListener("click", () => {
   window.location.href = "love.html";
