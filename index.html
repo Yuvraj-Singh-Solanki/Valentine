@@ -54,6 +54,16 @@ button{
   cursor:pointer;
   transition:0.3s;
 }
+.valentine-sticker{
+  width:130px;
+  margin-bottom:15px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce{
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
 
 #yesBtn{
   background:#ff4d6d;
@@ -73,6 +83,7 @@ button{
 <body>
 
 <div class="container">
+  <img src="IMG_5085.gif" class="valentine-sticker">
   <h1>Will You Be My Valentine? ❤️</h1>
 
   <div class="buttons" id="buttonArea">
