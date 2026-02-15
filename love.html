@@ -72,6 +72,28 @@ button{
 button:hover{
   transform:scale(1.1);
 }
+.love-sticker{
+  width:160px;
+  margin:20px 0;
+  animation:popIn 1.2s ease forwards, floatSticker 3s ease-in-out infinite;
+  opacity:0;
+}
+
+@keyframes popIn{
+  from{
+    transform:scale(0.5);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+@keyframes floatSticker{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-12px); }
+}
 </style>
 </head>
 
@@ -91,6 +113,7 @@ for(let i=0;i<20;i++){
 </script>
 
 <div class="name" id="name"></div>
+<img src=IMG_5087.gif" class="love-sticker">
 
 <p>
 From the first message…<br>
