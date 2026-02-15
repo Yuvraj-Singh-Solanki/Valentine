@@ -135,7 +135,31 @@ noBtn.addEventListener("touchstart", function(e){
 });
 
 yesBtn.addEventListener("click", () => {
-  window.location.href = "love.html";
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#ff758c,#ff7eb3);
+      color:white;
+      font-size:28px;
+      text-align:center;
+      font-family:Arial;
+      flex-direction:column;
+    ">
+      <div style="font-size:50px;">💍❤️</div>
+      <div>She Said YES 😍</div>
+      <div style="margin-top:15px; font-size:18px;">
+        And just like that…<br>
+        My world became complete 💕
+      </div>
+    </div>
+  `;
+
+  setTimeout(()=>{
+    window.location.href = "love.html";
+  }, 2500);
 });
 </script>
 </body>
