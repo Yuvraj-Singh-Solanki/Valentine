@@ -39,9 +39,6 @@ h1{
   margin-bottom:30px;
 }
 .buttons{
-  position:relative;
-  width:100%;
-  height:160px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -86,32 +83,33 @@ button{
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const buttonArea = document.getElementById("buttonArea");
 
 let moved = false;
 
 function moveButton() {
 
   if (!moved) {
-    noBtn.style.position = "absolute";
+    noBtn.style.position = "fixed";   // 🔥 move relative to screen
     moved = true;
   }
 
-  const maxX = buttonArea.clientWidth - noBtn.offsetWidth;
-  const maxY = buttonArea.clientHeight - noBtn.offsetHeight;
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const yesRect = yesBtn.getBoundingClientRect();
 
   let randomX, randomY;
   let attempts = 0;
-  const safeDistance = 100;
+  const safeDistance = 180; // distance from Yes
 
   do {
     randomX = Math.random() * maxX;
     randomY = Math.random() * maxY;
     attempts++;
   } while (
-    Math.abs(randomX - yesBtn.offsetLeft) < safeDistance &&
-    Math.abs(randomY - yesBtn.offsetTop) < safeDistance &&
-    attempts < 50   // 🔥 prevents infinite loop
+    Math.abs(randomX - yesRect.left) < safeDistance &&
+    Math.abs(randomY - yesRect.top) < safeDistance &&
+    attempts < 100
   );
 
   noBtn.style.left = randomX + "px";
@@ -119,6 +117,7 @@ function moveButton() {
 }
 
 noBtn.addEventListener("mouseover", moveButton);
+
 noBtn.addEventListener("touchstart", function(e){
   e.preventDefault();
   moveButton();
